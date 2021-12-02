@@ -1,9 +1,21 @@
-const handleUserInput = () => {
-  process.stdin.on('data', (key) => {
-    if (key === '\u0003') process.exit();
-  });
+// Stores the active TCP connection object.
+let connection;
+const handleUserInput = (key) => {
+  //const moveK = m => setInterval(() => connection.write(m), 100);
+  const moveT = (starter, move, ender) => {
+    do {
+      setTimeout(() => connection.write(move),starter);
+      starter += 3;
+    } while (starter < ender);
+  };
+  if (key === 'a') moveT(0, "Move: left", 30);
+  if (key === 'w') moveT(0, "Move: up", 30);
+  if (key === 'd') moveT(0, "Move: right", 30);
+  if (key === 's') moveT(0, "Move: down", 30);
+  if (key === '\u0003') process.exit();
 };
-const setupInput = function() {
+const setupInput = (conn) => {
+  connection = conn;
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.setEncoding("utf8");
@@ -12,4 +24,4 @@ const setupInput = function() {
   return stdin;
 };
 
-module.exports = {handleUserInput, setupInput};
+module.exports = {setupInput};

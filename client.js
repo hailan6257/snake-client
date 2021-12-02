@@ -13,12 +13,8 @@ const connect = function() {
   conn.on('connect', () => {
     console.log('"Successfully connected to game server" ');
     conn.write('Name: HLW');
-    // setTimeout(() => conn.write('Move: left'), 100);
-    // const moveUp = timer => setInterval(() => conn.write('Move: up'), timer);
-    // moveUp(500);
-    // setTimeout(() => clearInterval(moveUp), 5000);
   });
   return conn;
 };
 
-module.exports = {net, connect};
+module.exports = {connect};
